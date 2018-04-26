@@ -123,11 +123,11 @@ func (p *hashPartitioner) Partition(message *ProducerMessage, numPartitions int3
 	if err != nil {
 		return -1, err
 	}
-	partition := int32(p.hasher.Sum32()) % numPartitions
+	partition := uint32(p.hasher.Sum32()) % uint32(numPartitions)
 	if partition < 0 {
 		partition = -partition
 	}
-	return partition, nil
+	return int32(partition), nil
 }
 
 func (p *hashPartitioner) RequiresConsistency() bool {
